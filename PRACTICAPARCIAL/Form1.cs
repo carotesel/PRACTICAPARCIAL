@@ -11,6 +11,7 @@ namespace PRACTICAPARCIAL
             InitializeComponent();
 
             clientes = new List<Cliente>();
+            dataGridView1.DataSource = ListarCompleto();
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -78,8 +79,13 @@ namespace PRACTICAPARCIAL
                 return;
             }
 
-            // Obteniendo el cliente seleccionado
-            var selectedClient = dataGridView1.SelectedRows[0].DataBoundItem as Cliente;
+            var row = dataGridView1.SelectedRows[0];
+
+            int legajo = Convert.ToInt32(row.Cells["Legajo"].Value);
+
+            var selectedClient = clientes.Find(c => c.Legajo == legajo);
+
+
             if (selectedClient == null)
             {
                 MessageBox.Show("Cliente seleccionado no válido.");
